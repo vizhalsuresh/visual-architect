@@ -77,12 +77,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg0);}
 .comp-name{font-size:12px;color:var(--t2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .comp-dur{font-size:12px;color:var(--t4);}
 .comp-tag{font-size:12px;padding:1px 4px;border-radius:2px;background:var(--acc2);color:var(--acc);font-weight:600;}
-.ai-hint{font-size:12px;color:var(--acc);opacity:0;transition:opacity .3s;padding:2px 8px 4px 26px;letter-spacing:.03em;}
-.ai-hint.show{opacity:.8;}
-.search-bar{padding:5px 8px;border-bottom:1px solid var(--b1);}
-.search-input{width:100%;background:var(--bg3);border:1px solid var(--b2);border-radius:2px;padding:3px 6px;font-family:var(--font);font-size:12px;color:var(--t1);outline:none;}
-.search-input:focus{border-color:var(--acc);}
-.search-input::placeholder{color:var(--t4);}
 
 .viewer{border-right:1px solid var(--b1);display:flex;flex-direction:column;position:relative;}
 .viewer-tab-bar{background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:0;flex-shrink:0;overflow:hidden;}
@@ -162,16 +156,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg0);}
 
 /* BIG TEXT STYLES */
 .big-text-container{padding:60px 40px;height:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;}
-.hero-text{font-size:48px;font-weight:700;line-height:1.1;letter-spacing:-0.02em;color:var(--t1);font-family:'Space Grotesk',sans-serif;}
-.sub-hero-text{font-size:18px;color:var(--acc);margin-top:20px;max-width:600px;line-height:1.6;}
-.contact-hero{font-size:32px;margin-bottom:10px;color:var(--t1);}
-.contact-link{font-size:24px;color:var(--acc);text-decoration:none;display:block;margin-bottom:15px;transition:opacity 0.2s;}
+.hero-text{font-size:64px;font-weight:700;line-height:1.05;letter-spacing:-0.03em;color:var(--t1);font-family:'Space Grotesk',sans-serif;}
+.sub-hero-text{font-size:20px;color:var(--acc);margin-top:24px;max-width:700px;line-height:1.6;}
+.contact-hero{font-size:42px;margin-bottom:15px;color:var(--t1);font-weight:600;}
+.contact-link{font-size:36px;color:var(--acc);text-decoration:none;display:block;margin-bottom:20px;transition:opacity 0.2s;word-break:break-all;}
 .contact-link:hover{opacity:0.8;}
 
-/* PLAYER STYLES */
-.source-monitor{width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;position:relative;}
-.source-monitor video, .source-monitor img {max-width:100%;max-height:100%;box-shadow:0 0 40px rgba(0,0,0,0.5);}
-.player-overlay{position:absolute;top:10px;left:10px;padding:4px 8px;background:rgba(0,0,0,0.6);font-size:10px;color:var(--teal);border:1px solid var(--b2);border-radius:2px;}
+/* PLAYER STYLES (FIXED) */
+.source-monitor{width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.source-monitor video, .source-monitor img {max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 0 40px rgba(0,0,0,0.5);}
+.player-overlay{position:absolute;top:10px;left:10px;padding:4px 8px;background:rgba(0,0,0,0.6);font-size:10px;color:var(--teal);border:1px solid var(--b2);border-radius:2px;z-index:5;}
 </style>
 </head>
 <body>
@@ -179,8 +173,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg0);}
 
 <script type="text/babel">
 const { useState, useEffect, useRef, useCallback } = React;
-
-const AI_MESSAGES = ['Analyzing…','Detected: Kinetic','Optimized','Neural analysis active'];
 
 function formatTime(pct) {
   const total = 75;
@@ -199,7 +191,7 @@ function App() {
   useEffect(() => {
     fetch('./data.json').then(res => res.json()).then(d => { 
         setData(d); 
-        if(d.projects.length > 0) setSelectedProject(d.projects[0]);
+        if(d.projects.length > 0) setSelectedProject(d.projects.find(p => p.mediaType === 'video') || d.projects[0]);
         setLoading(false); 
     });
   }, []);
@@ -211,7 +203,15 @@ function App() {
 
   if (loading) return <div style={{color:'white', background:'#0a0a0a', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center'}}>Initializing SV Workspace...</div>;
 
-  const { profile, compositions, workItems, projects, timelineTracks } = data;
+  const { profile, compositions, workItems, projects } = data;
+  const videoProjects = projects.filter(p => p.mediaType === 'video');
+  const posters = projects.filter(p => p.mediaType === 'image');
+
+  // Enhanced dynamic timeline tracks
+  const timelineTracks = [
+    { id: 'v1', name: 'Video Layer', color: 'var(--acc)', clips: videoProjects.map((p, i) => ({ start: i*10, end: (i*10)+8, name: p.name })) },
+    { id: 'g1', name: 'Graphics Layer', color: 'var(--teal)', clips: posters.map((p, i) => ({ start: i*15, end: (i*15)+12, name: p.name })) }
+  ];
 
   return (
     <div className="app">
@@ -229,12 +229,12 @@ function App() {
       <div className="toolbar">
         {['↖', '✒', 'T', '□'].map((icon, i) => <div key={i} className="tool-btn">{icon}</div>)}
         <div className="tool-sep" />
-        <span className="toolbar-label">Workspace: Motion</span>
+        <span className="toolbar-label">Workspace: Motion Rendering</span>
       </div>
 
       <div className="main-area">
         <div className="panel project-panel">
-          <div className="panel-header"><div className="panel-icon">◈</div><span className="panel-title">Project</span></div>
+          <div className="panel-header"><div className="panel-icon">◈</div><span className="panel-title">Project Browser</span></div>
           <div className="project-list">
             <div className="proj-section">Compositions</div>
             {compositions.map(c => (
@@ -244,12 +244,22 @@ function App() {
                 <span className="comp-dur">{c.dur}</span>
               </div>
             ))}
-            <div className="proj-section">Source Clips (Assets)</div>
-            {projects.map(p => (
+            
+            <div className="proj-section">Video Projects</div>
+            {videoProjects.map(p => (
               <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
-                <div className="comp-icon" style={{ background: p.mediaType === 'video' ? 'var(--acc)' : 'var(--teal)' }} />
+                <div className="comp-icon" style={{ background: 'var(--acc)' }} />
                 <span className="comp-name">{p.name}</span>
-                <span className="comp-dur" style={{fontSize:8}}>{p.mediaType.toUpperCase()}</span>
+                <span className="comp-dur">MP4</span>
+              </div>
+            ))}
+
+            <div className="proj-section">Posters & Graphics</div>
+            {posters.map(p => (
+              <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
+                <div className="comp-icon" style={{ background: 'var(--teal)' }} />
+                <span className="comp-name">{p.name}</span>
+                <span className="comp-dur">IMG</span>
               </div>
             ))}
           </div>
@@ -289,8 +299,8 @@ function About({ profile }) {
   return (
     <div className="big-text-container fade-in">
       <h1 className="hero-text">{profile.name}</h1>
-      <p className="hero-text" style={{color:'var(--acc)', fontSize:'32px'}}>{profile.title}</p>
-      <div className="sub-hero-text">{profile.bio}</div>
+      <p className="hero-text" style={{color:'var(--acc)', fontSize:'38px', marginTop: '10px'}}>{profile.title}</p>
+      <div className="sub-hero-text" style={{fontSize: '22px'}}>{profile.bio}</div>
     </div>
   );
 }
@@ -298,23 +308,23 @@ function About({ profile }) {
 function Contact({ profile }) {
   return (
     <div className="big-text-container fade-in">
-      <div className="contact-hero">Start a Project</div>
+      <div className="contact-hero">Get in Touch</div>
       <a href={`mailto:${profile.contact.email}`} className="hero-text contact-link">{profile.contact.email}</a>
-      <div className="contact-hero" style={{fontSize:'24px', marginTop:'20px'}}>Based in {profile.contact.location}</div>
-      <div className="sub-hero-text">{profile.contact.phone}</div>
+      <div className="contact-hero" style={{fontSize:'32px', marginTop:'30px'}}>Currently based in {profile.contact.location}</div>
+      <div className="sub-hero-text" style={{fontSize: '24px'}}>{profile.contact.phone}</div>
     </div>
   );
 }
 
 function Player({ project }) {
-  if(!project) return <div className="source-monitor"><span style={{color:'var(--t4)'}}>No Clip Selected</span></div>;
+  if(!project) return <div className="source-monitor"><span style={{color:'var(--t4)'}}>No Clip Loaded</span></div>;
   return (
     <div className="source-monitor fade-in">
-      <div className="player-overlay">SOURCE: {project.name}</div>
+      <div className="player-overlay">MONITOR: {project.name}</div>
       {project.mediaType === 'video' ? (
-        <video src={project.mediaUrl} controls autoPlay muted loop />
+        <video key={project.id} src={project.mediaUrl} controls autoPlay muted loop />
       ) : (
-        <img src={project.mediaUrl} />
+        <img key={project.id} src={project.mediaUrl} />
       )}
     </div>
   );
@@ -322,13 +332,14 @@ function Player({ project }) {
 
 function Work({ workItems }) {
   return (
-    <div className="comp-work fade-in" style={{padding:'20px'}}>
+    <div className="comp-work fade-in" style={{padding:'40px'}}>
+      <div className="hero-text" style={{fontSize:'42px', marginBottom:'40px'}}>Experience</div>
       {workItems.map((w, i) => (
-        <div key={i} style={{marginBottom:'30px', borderLeft:'2px solid'+w.color, paddingLeft:'15px'}}>
-          <div style={{fontSize:'12px', color:'var(--t4)'}}>{w.period}</div>
-          <div style={{fontSize:'18px', fontWeight:700, margin:'5px 0'}}>{w.name}</div>
-          <div style={{color:'var(--acc)', marginBottom:'10px'}}>{w.role}</div>
-          <div style={{fontSize:'13px', color:'var(--t2)', lineHeight:1.6}}>{w.desc}</div>
+        <div key={i} style={{marginBottom:'50px', borderLeft:'4px solid '+w.color, paddingLeft:'25px'}}>
+          <div style={{fontSize:'14px', color:'var(--t4)', fontWeight:600}}>{w.period}</div>
+          <div style={{fontSize:'28px', fontWeight:700, margin:'10px 0'}}>{w.name}</div>
+          <div style={{color:'var(--acc)', fontSize:'18px', marginBottom:'15px'}}>{w.role}</div>
+          <div style={{fontSize:'16px', color:'var(--t2)', lineHeight:1.6, maxWidth:'800px'}}>{w.desc}</div>
         </div>
       ))}
     </div>
@@ -339,13 +350,14 @@ function PropertiesPanel({ activeComp, compositions, selectedProject, aiMode }) 
   const comp = compositions.find(c => c.id === activeComp) || compositions[0];
   return (
     <div className="panel properties-panel">
-      <div className="panel-header"><div className="panel-icon">P</div><span className="panel-title">Properties</span></div>
+      <div className="panel-header"><div className="panel-icon">P</div><span className="panel-title">Metadata</span></div>
       <div className="prop-section">
-        <div className="prop-section-header"><span className="prop-section-title">Selection</span></div>
+        <div className="prop-section-header"><span className="prop-section-title">Clip Info</span></div>
         <div className="info-rows">
-          <div className="info-row"><span className="info-k">Name</span><span className="info-v">{activeComp === 'player' ? selectedProject?.name : comp.name}</span></div>
-          <div className="info-row"><span className="info-k">Type</span><span className="info-v">{activeComp === 'player' ? selectedProject?.mediaType.toUpperCase() : 'COMP'}</span></div>
-          <div className="info-row"><span className="info-k">Format</span><span className="info-v">1920 × 1080</span></div>
+          <div className="info-row"><span className="info-k">Active</span><span className="info-v">{activeComp === 'player' ? selectedProject?.name : comp.name}</span></div>
+          <div className="info-row"><span className="info-k">Format</span><span className="info-v">{activeComp === 'player' ? selectedProject?.mediaType.toUpperCase() : 'COMPS'}</span></div>
+          <div className="info-row"><span className="info-k">Resolution</span><span className="info-v">1920 × 1080</span></div>
+          <div className="info-row"><span className="info-k">FPS</span><span className="info-v">24.00</span></div>
         </div>
       </div>
     </div>
@@ -357,15 +369,16 @@ function Timeline({ activeComp, setActiveComp, playhead, setPlayhead, timelineTr
     <div className="timeline">
       <div className="timeline-header">
         <div className="panel-icon" style={{ background: 'var(--orange)' }}>T</div>
-        <span className="tl-title">Timeline</span>
+        <span className="tl-title">Sequence Timeline</span>
         <div className="tl-controls"><div className="tl-timecode">{formatTime(playhead)}</div></div>
       </div>
       <div className="timeline-body">
         <div className="tl-names">
+          <div className="tl-name-header">Track Name</div>
           {timelineTracks.map(t => (
             <div key={t.id} className="tl-track">
               <div className="tl-track-icon" style={{ background: t.color }} />
-              <div className="tl-track-name">{t.name}</div>
+              <div className="tl-track-name" style={{fontSize:'10px'}}>{t.name}</div>
             </div>
           ))}
         </div>
@@ -374,7 +387,7 @@ function Timeline({ activeComp, setActiveComp, playhead, setPlayhead, timelineTr
           {timelineTracks.map(t => (
             <div key={t.id} className="tl-track-row">
               {t.clips.map((c, i) => (
-                <div key={i} className="tl-clip" style={{ left: `${c.start}%`, width: `${c.end - c.start}%`, background: t.color, opacity: 0.75 }}>{t.name}</div>
+                <div key={i} className="tl-clip" style={{ left: `${c.start}%`, width: `${c.end - c.start}%`, background: t.color, opacity: 0.6, fontSize: '9px' }}>{c.name}</div>
               ))}
             </div>
           ))}
