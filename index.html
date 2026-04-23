@@ -5,179 +5,157 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Suresh Vizhal — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 <style>
-/* 100% ORIGINAL DESIGN LOCKDOWN */
+/* 100% DESIGN LOCKDOWN + PREMIUM UI UPLIFT */
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg0:#0a0a0a;--bg1:#111;--bg2:#181818;--bg3:#1f1f1f;--bg4:#272727;
+  --bg0:#050505;--bg1:#0c0c0c;--bg2:#141414;--bg3:#1d1d1f;--bg4:#252527;
   --b1:#2a2a2a;--b2:#333;--b3:#3d3d3d;
-  --t1:#e2e2e2;--t2:#a0a0a0;--t3:#666;--t4:#444;
-  --acc:#2d87ff;--acc2:rgba(45,135,255,0.15);--acc3:rgba(45,135,255,0.06);
-  --acc-glow:rgba(45,135,255,0.25);
+  --t1:#f5f5f7;--t2:#a1a1a6;--t3:#6e6e73;--t4:#424245;
+  --acc:#2d87ff;--acc2:rgba(45,135,255,0.18);--acc3:rgba(45,135,255,0.08);
+  --acc-glow:rgba(45,135,255,0.3);
   --green:#3ecf6e;--orange:#e8854a;--purple:#a855f7;--red:#f04545;--teal:#3ecfb8;
-  --font:'JetBrains Mono',monospace;
-  --ai-glow:rgba(45,135,255,0.12);
+  --font-hero:'Bebas Neue', sans-serif;
+  --font-main:'Inter', sans-serif;
+  --font-ui:'Space Grotesk', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
 }
 html,body{width:100%;height:100%;overflow:hidden;background:var(--bg0);}
 #root{width:100%;height:100%;display:flex;flex-direction:column;}
-.app{display:grid;grid-template-rows:26px 30px 1fr 210px;grid-template-columns:1fr;height:100vh;font-family:var(--font);font-size:14px;color:var(--t1);background:var(--bg0);user-select:none;}
+.app{display:grid;grid-template-rows:26px 30px 1fr 210px;grid-template-columns:1fr;height:100vh;font-family:var(--font-ui);font-size:13px;color:var(--t1);background:var(--bg0);user-select:none;}
 
-.menubar{background:var(--bg1);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 8px;gap:2px;z-index:100;}
-.menubar-brand{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.08em;margin-right:10px;padding:2px 6px;border:1px solid var(--b2);border-radius:2px;}
-.menubar-item{padding:3px 8px;cursor:pointer;color:var(--t2);font-size:12px;border-radius:2px;transition:all .15s;}
+/* NAVIGATION & UI COMPONENTS */
+.menubar{background:var(--bg1);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 12px;gap:2px;z-index:100;}
+.menubar-brand{font-size:12px;font-weight:800;color:var(--acc);letter-spacing:.12em;margin-right:14px;padding:2px 8px;border:1.5px solid var(--b2);border-radius:3px;font-family:var(--font-hero);}
+.menubar-item{padding:3px 10px;cursor:pointer;color:var(--t2);font-size:11px;border-radius:2px;transition:all .2s;font-weight:500;}
 .menubar-item:hover{background:var(--bg4);color:var(--t1);}
-.menubar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
-.ai-badge{display:flex;align-items:center;gap:5px;padding:3px 8px;border-radius:2px;border:1px solid var(--b2);cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.05em;transition:all .2s;}
-.ai-badge.active{border-color:var(--acc);color:var(--acc);background:var(--acc2);box-shadow:0 0 12px var(--acc-glow);}
-.ai-badge.inactive{color:var(--t3);}
-.ai-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
-.ai-dot.pulse{animation:pulse 1.5s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
-.time-display{font-size:12px;color:var(--t3);letter-spacing:.05em;}
+.menubar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.ai-badge{display:flex;align-items:center;gap:6px;padding:3px 10px;border-radius:4px;border:1px solid var(--b2);cursor:pointer;font-size:11px;font-weight:600;letter-spacing:.04em;transition:all .3s;}
+.ai-badge.active{border-color:var(--acc);color:var(--acc);background:var(--acc2);box-shadow:0 0 15px var(--acc-glow);}
 
-.toolbar{background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 8px;gap:1px;}
-.tool-btn{width:26px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px;color:var(--t3);font-size:12px;transition:all .15s;border:1px solid transparent;}
+.toolbar{background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 10px;gap:2px;}
+.tool-btn{width:28px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:3px;color:var(--t3);font-size:13px;transition:all .15s;}
 .tool-btn:hover{background:var(--bg4);color:var(--t1);}
-.tool-btn.active{background:var(--bg4);color:var(--acc);border-color:var(--b2);}
-.tool-sep{width:1px;height:16px;background:var(--b2);margin:0 4px;}
-.toolbar-label{font-size:12px;color:var(--t3);padding:0 6px;letter-spacing:.06em;}
-.snap-toggle{display:flex;align-items:center;gap:4px;padding:2px 8px;font-size:12px;color:var(--t3);cursor:pointer;border-radius:2px;border:1px solid transparent;}
-.snap-toggle:hover{background:var(--bg3);}
-.ai-status{margin-left:auto;font-size:12px;color:var(--acc);opacity:0;transition:opacity .3s;letter-spacing:.04em;}
-.ai-status.visible{opacity:1;}
-.ai-status-text{animation:fadeText 3s ease-in-out infinite;}
-@keyframes fadeText{0%,100%{opacity:.5;}50%{opacity:1;}}
+.tool-btn.active{background:var(--bg3);color:var(--acc);border:1px solid var(--b2);}
+.tool-sep{width:1px;height:16px;background:var(--b2);margin:0 6px;}
+.toolbar-label{font-size:11px;color:var(--t3);padding:0 8px;letter-spacing:.08em;font-weight:500;text-transform:uppercase;}
 
-.main-area{display:grid;grid-template-columns:240px 1fr 260px;overflow:hidden;border-bottom:1px solid var(--b1);}
+.main-area{display:grid;grid-template-columns:260px 1fr 280px;overflow:hidden;border-bottom:1px solid var(--b1);}
 
 .panel{background:var(--bg1);display:flex;flex-direction:column;overflow:hidden;}
-.panel-header{background:var(--bg2);border-bottom:1px solid var(--b1);padding:5px 8px;display:flex;align-items:center;gap:6px;flex-shrink:0;}
-.panel-title{font-size:12px;font-weight:600;color:var(--t2);letter-spacing:.06em;text-transform:uppercase;}
-.panel-icon{width:12px;height:12px;border-radius:2px;background:var(--acc);opacity:.8;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:700;}
-.panel-controls{margin-left:auto;display:flex;gap:4px;}
-.panel-btn{width:16px;height:16px;border-radius:2px;border:1px solid var(--b2);background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3);}
-.panel-btn:hover{background:var(--bg4);color:var(--t1);}
+.panel-header{background:var(--bg2);border-bottom:1px solid var(--b1);padding:6px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.panel-title{font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;}
+.panel-icon{width:14px;height:14px;border-radius:2px;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:800;opacity:.9;}
 
 .project-panel{border-right:1px solid var(--b1);}
 .project-list{overflow-y:auto;flex:1;}
-.project-list::-webkit-scrollbar{width:4px;}
-.project-list::-webkit-scrollbar-track{background:var(--bg1);}
-.project-list::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
-.proj-section{padding:6px 8px 2px;font-size:12px;color:var(--t4);text-transform:uppercase;letter-spacing:.08em;border-top:1px solid var(--b1);}
+.proj-section{padding:10px 10px 4px;font-size:11px;color:var(--t4);text-transform:uppercase;letter-spacing:.12em;font-weight:700;border-top:1px solid var(--b1);}
 .proj-section:first-child{border-top:none;}
-.comp-item{display:flex;align-items:center;gap:6px;padding:4px 8px;cursor:pointer;border-left:2px solid transparent;transition:all .12s;position:relative;}
+.comp-item{display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;border-left:3px solid transparent;transition:all .15s;}
 .comp-item:hover{background:var(--bg3);}
 .comp-item.active{background:var(--acc3);border-left-color:var(--acc);}
-.comp-item.active .comp-name{color:var(--t1);}
-.comp-icon{width:12px;height:12px;border-radius:1px;flex-shrink:0;}
+.comp-item.active .comp-name{color:var(--t1);font-weight:600;}
+.comp-icon{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
 .comp-name{font-size:12px;color:var(--t2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.comp-dur{font-size:12px;color:var(--t4);}
-.comp-tag{font-size:12px;padding:1px 4px;border-radius:2px;background:var(--acc2);color:var(--acc);font-weight:600;}
+.comp-dur{font-size:10px;color:var(--t4);font-family:var(--font-mono);}
 
 .viewer{border-right:1px solid var(--b1);display:flex;flex-direction:column;position:relative;}
 .viewer-tab-bar{background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:0;flex-shrink:0;overflow:hidden;}
-.viewer-tab{padding:5px 12px;font-size:12px;color:var(--t3);cursor:pointer;border-right:1px solid var(--b1);white-space:nowrap;transition:all .12s;display:flex;align-items:center;gap:5px;}
-.viewer-tab.active{background:var(--bg1);color:var(--t1);}
-.viewer-tab-dot{width:7px;height:7px;border-radius:50%;}
-.viewer-content{flex:1;overflow:hidden;position:relative;background:var(--bg0);}
-.viewer-footer{background:var(--bg2);border-top:1px solid var(--b1);padding:4px 10px;display:flex;align-items:center;gap:12px;flex-shrink:0;font-size:12px;color:var(--t3);}
-.viewer-btn{padding:2px 8px;border:1px solid var(--b2);border-radius:2px;cursor:pointer;background:var(--bg3);font-family:var(--font);font-size:12px;color:var(--t2);transition:all .12s;}
-.viewer-btn:hover{background:var(--bg4);color:var(--t1);}
-.viewer-btn.play{border-color:var(--acc);color:var(--acc);}
-.resolution-badge{margin-left:auto;padding:2px 6px;border:1px solid var(--b2);border-radius:2px;font-size:12px;color:var(--t3);}
+.viewer-tab{padding:6px 16px;font-size:11px;color:var(--t3);cursor:pointer;border-right:1px solid var(--b1);white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.viewer-tab.active{background:var(--bg1);color:var(--t1);font-weight:600;}
+.viewer-tab-dot{width:6px;height:6px;border-radius:50%;}
+.viewer-content{flex:1;overflow:hidden;position:relative;background:#000;}
+.viewer-footer{background:var(--bg2);border-top:1px solid var(--b1);padding:6px 12px;display:flex;align-items:center;gap:15px;flex-shrink:0;font-size:11px;color:var(--t3);font-family:var(--font-mono);}
 
-.properties-panel{display:flex;flex-direction:column;overflow:hidden;}
-.prop-section{border-bottom:1px solid var(--b1);}
-.prop-section-header{padding:5px 8px;display:flex;align-items:center;gap:5px;cursor:pointer;background:var(--bg2);}
-.prop-section-title{font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;}
-.prop-chevron{font-size:7px;color:var(--t4);margin-left:auto;transition:transform .15s;}
-.prop-chevron.open{transform:rotate(90deg);}
-.prop-body{padding:6px 8px;display:flex;flex-direction:column;gap:4px;}
-.prop-row{display:flex;align-items:center;gap:6px;padding:2px 0;}
-.prop-key{font-size:12px;color:var(--t3);width:80px;flex-shrink:0;}
-.prop-val{font-size:12px;color:var(--t1);flex:1;}
-.prop-val.blue{color:var(--acc);}
-.info-rows{padding:6px 8px;display:flex;flex-direction:column;gap:3px;}
-.info-row{display:flex;gap:6px;font-size:12px;}
-.info-k{color:var(--t4);width:80px;flex-shrink:0;}
-.info-v{color:var(--t2);}
+/* SOURCE MONITOR / PLAYER */
+.source-monitor{width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.source-monitor video, .source-monitor img {max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 0 100px rgba(45,135,255,0.1);}
+.player-overlay{position:absolute;top:15px;left:15px;padding:5px 10px;background:rgba(0,0,0,0.7);font-size:10px;color:var(--teal);border:1px solid var(--b3);border-radius:3px;z-index:10;font-family:var(--font-mono);letter-spacing:1px;backdrop-filter:blur(4px);}
 
+/* UPLIFTED PAGES: ABOUT & CONTACT */
+.premium-page-container{padding:60px 50px;height:100%;overflow-y:auto;display:flex;gap:40px;align-items:center;}
+.hero-photo-area{flex-shrink:0;width:280px;height:360px;position:relative;border:1px solid var(--b2);padding:10px;background:var(--bg2);box-shadow: 20px 20px 60px rgba(0,0,0,0.8);}
+.hero-photo-area img{width:100%;height:100%;object-fit:cover;filter:grayscale(0.2) contrast(1.1);border:1px solid var(--b1);}
+.hero-photo-area::before{content:'';position:absolute;inset:-2px;border:1px solid var(--acc);opacity:0.3;z-index:-1;}
+
+.hero-content{flex:1;}
+.hero-name{font-family:var(--font-hero);font-size:92px;line-height:0.9;color:var(--t1);letter-spacing:-2px;text-transform:uppercase;margin-bottom:10px;}
+.hero-title{font-family:var(--font-ui);font-size:24px;font-weight:400;color:var(--acc);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;}
+.hero-bio{font-family:var(--font-main);font-size:17px;line-height:1.7;color:var(--t2);max-width:700px;margin-bottom:40px;font-weight:300;}
+
+/* SKILL BARS */
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;max-width:600px;}
+.skill-item{margin-bottom:15px;}
+.skill-label{display:flex;justify-content:space-between;margin-bottom:8px;font-family:var(--font-mono);font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:1px;}
+.skill-bar-track{height:3px;background:var(--bg4);position:relative;border-radius:2px;}
+.skill-bar-fill{height:100%;background:var(--acc);box-shadow:0 0 10px var(--acc-glow);border-radius:2px;transition:width 1.5s cubic-bezier(0.19, 1, 0.22, 1);}
+
+/* CONTACT STYLES */
+.contact-grid{display:flex;flex-direction:column;gap:30px;}
+.contact-block{border-left:1px solid var(--b2);padding-left:30px;}
+.contact-label-small{font-size:11px;color:var(--t4);text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;font-weight:700;}
+.contact-value-big{font-family:var(--font-hero);font-size:48px;color:var(--t1);text-decoration:none;transition:color .3s;letter-spacing:1px;}
+.contact-value-big:hover{color:var(--acc);}
+
+/* TIMELINE */
 .timeline{background:var(--bg1);display:flex;flex-direction:column;border-top:1px solid var(--b1);}
-.timeline-header{background:var(--bg2);border-bottom:1px solid var(--b1);padding:4px 8px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.tl-title{font-size:12px;font-weight:600;color:var(--t2);letter-spacing:.06em;text-transform:uppercase;}
-.tl-controls{display:flex;gap:4px;margin-left:auto;align-items:center;}
-.tl-btn{padding:2px 7px;border:1px solid var(--b2);border-radius:2px;font-family:var(--font);font-size:12px;color:var(--t3);background:var(--bg3);cursor:pointer;transition:all .12s;}
-.tl-btn:hover{color:var(--t1);background:var(--bg4);}
-.tl-timecode{font-size:12px;color:var(--acc);letter-spacing:.05em;padding:2px 7px;border:1px solid var(--b2);border-radius:2px;background:var(--bg0);}
+.timeline-header{background:var(--bg2);border-bottom:1px solid var(--b1);padding:6px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tl-title{font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.1em;text-transform:uppercase;}
+.tl-timecode{font-size:11px;color:var(--acc);font-family:var(--font-mono);letter-spacing:.1em;padding:3px 10px;background:var(--bg0);border:1px solid var(--b2);border-radius:3px;}
 .timeline-body{display:flex;flex:1;overflow:hidden;}
 .tl-names{width:220px;flex-shrink:0;border-right:1px solid var(--b1);overflow:hidden;}
-.tl-name-header{height:24px;background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 8px;font-size:12px;color:var(--t4);}
-.tl-track{height:26px;border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 6px;gap:5px;cursor:pointer;transition:background .12s;}
+.tl-name-header{height:24px;background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 12px;font-size:10px;color:var(--t4);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.tl-track{height:28px;border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 10px;gap:8px;cursor:pointer;transition:all .2s;}
 .tl-track:hover{background:var(--bg3);}
 .tl-track.active{background:var(--acc3);}
-.tl-track-expand{font-size:7px;color:var(--t4);width:10px;}
-.tl-track-check{width:10px;height:10px;border:1px solid var(--b2);border-radius:1px;flex-shrink:0;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;}
 .tl-track-icon{width:8px;height:8px;border-radius:1px;flex-shrink:0;}
-.tl-track-name{font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.tl-track-name.active{color:var(--t1);}
-.tl-track-sub{font-size:12px;color:var(--t4);}
+.tl-track-name{font-size:11px;color:var(--t2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
 .tl-scrub{flex:1;position:relative;overflow:hidden;}
-.tl-ruler{height:24px;background:var(--bg2);border-bottom:1px solid var(--b1);position:relative;cursor:pointer;}
-.tl-ruler-marks{position:absolute;inset:0;display:flex;align-items:flex-end;padding-bottom:4px;}
-.tl-mark{position:absolute;display:flex;flex-direction:column;align-items:center;}
-.tl-mark-line{width:1px;background:var(--b2);}
-.tl-mark-label{font-size:12px;color:var(--t4);margin-top:2px;transform:translateX(-50%);}
-.tl-clips-area{position:relative;flex:1;overflow:hidden;}
-.tl-clip{position:absolute;height:18px;top:4px;border-radius:2px;cursor:pointer;display:flex;align-items:center;padding:0 5px;overflow:hidden;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);transition:filter .15s,transform .1s;white-space:nowrap;}
-.tl-clip:hover{filter:brightness(1.2);transform:scaleY(1.05);}
-.tl-clip.active{outline:1px solid rgba(255,255,255,.5);}
-.tl-kf{position:absolute;width:8px;height:8px;background:var(--orange);border:1px solid rgba(0,0,0,.3);border-radius:1px;top:9px;transform:rotate(45deg) translate(-50%,-50%);pointer-events:none;}
+.tl-ruler{height:24px;background:var(--bg2);border-bottom:1px solid var(--b1);position:relative;cursor:crosshair;}
 .tl-playhead{position:absolute;top:0;width:1px;background:var(--red);pointer-events:none;z-index:20;}
-.tl-playhead::before{content:"";position:absolute;top:-2px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid var(--red);}
-.tl-playhead-line{position:absolute;top:5px;left:0;width:1px;background:var(--red);bottom:0;}
-.tl-track-row{position:relative;height:26px;border-bottom:1px solid var(--b1);}
-.tl-track-bg{position:absolute;inset:0;cursor:pointer;}
-.tl-track-bg:hover{background:rgba(255,255,255,.02);}
+.tl-track-row{position:relative;height:28px;border-bottom:1px solid var(--b1);}
+.tl-clip{position:absolute;height:20px;top:4px;border-radius:3px;cursor:pointer;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.9);overflow:hidden;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,0.3);}
 
-.ai-overlay{position:absolute;inset:0;pointer-events:none;z-index:50;}
-.ai-scan-line{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(45,135,255,.4),transparent);animation:scanLine 4s linear infinite;opacity:0;transition:opacity .5s;}
-.ai-scan-line.active{opacity:1;}
-@keyframes scanLine{0%{top:0%;}100%{top:100%;}}
-.cursor-glow{position:fixed;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(45,135,255,.06),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:left .08s,top .08s;z-index:999;}
-.fade-in{animation:fadeIn .3s ease forwards;}
-@keyframes fadeIn{from{transform:translateY(4px);}to{transform:translateY(0);}}
+/* PROPERTIES PANEL */
+.properties-panel{display:flex;flex-direction:column;overflow:hidden;}
+.prop-section{border-bottom:1px solid var(--b1);}
+.prop-section-header{padding:6px 10px;display:flex;align-items:center;gap:6px;background:var(--bg2);font-weight:700;font-size:10px;text-transform:uppercase;color:var(--t3);letter-spacing:1px;}
+.info-rows{padding:8px 10px;display:flex;flex-direction:column;gap:5px;}
+.info-row{display:flex;gap:10px;font-size:11px;font-family:var(--font-mono);}
+.info-k{color:var(--t4);width:90px;flex-shrink:0;}
+.info-v{color:var(--t2);}
 
-.project-list::-webkit-scrollbar, .comp-work::-webkit-scrollbar, .comp-about::-webkit-scrollbar {width:4px;}
-.project-list::-webkit-scrollbar-thumb, .comp-work::-webkit-scrollbar-thumb, .comp-about::-webkit-scrollbar-thumb {background:var(--b2);border-radius:2px;}
+.fade-in{animation:fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-/* BIG TEXT STYLES */
-.big-text-container{padding:60px 40px;height:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;}
-.hero-text{font-size:64px;font-weight:700;line-height:1.05;letter-spacing:-0.03em;color:var(--t1);font-family:'Space Grotesk',sans-serif;}
-.sub-hero-text{font-size:20px;color:var(--acc);margin-top:24px;max-width:700px;line-height:1.6;}
-.contact-hero{font-size:42px;margin-bottom:15px;color:var(--t1);font-weight:600;}
-.contact-link{font-size:36px;color:var(--acc);text-decoration:none;display:block;margin-bottom:20px;transition:opacity 0.2s;word-break:break-all;}
-.contact-link:hover{opacity:0.8;}
-
-/* PLAYER STYLES (FIXED) */
-.source-monitor{width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.source-monitor video, .source-monitor img {max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 0 40px rgba(0,0,0,0.5);}
-.player-overlay{position:absolute;top:10px;left:10px;padding:4px 8px;background:rgba(0,0,0,0.6);font-size:10px;color:var(--teal);border:1px solid var(--b2);border-radius:2px;z-index:5;}
+::-webkit-scrollbar {width:4px;}
+::-webkit-scrollbar-thumb {background:var(--b2);border-radius:2px;}
 </style>
 </head>
 <body>
 <div id="root"></div>
 
 <script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+const { useState, useEffect, useRef } = React;
 
 function formatTime(pct) {
   const total = 75;
   const s = Math.round(pct * total / 100);
-  return `0:${String(s).padStart(2, '0')}`;
+  return `0:${String(s).padStart(2, '0')}:00`;
+}
+
+function Skill({ name, pct, color }) {
+  return (
+    <div className="skill-item">
+      <div className="skill-label"><span>{name}</span><span>{pct}%</span></div>
+      <div className="skill-bar-track"><div className="skill-bar-fill" style={{width: `${pct}%`, background: color}} /></div>
+    </div>
+  );
 }
 
 function App() {
@@ -185,7 +163,6 @@ function App() {
   const [activeComp, setActiveComp] = useState('about');
   const [selectedProject, setSelectedProject] = useState(null);
   const [playhead, setPlayhead] = useState(8);
-  const [aiMode, setAiMode] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -197,46 +174,46 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const id = setInterval(() => setPlayhead(p => p >= 100 ? 0 : p + 0.15), 100);
+    const id = setInterval(() => setPlayhead(p => p >= 100 ? 0 : p + 0.08), 100);
     return () => clearInterval(id);
   }, []);
 
-  if (loading) return <div style={{color:'white', background:'#0a0a0a', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center'}}>Initializing SV Workspace...</div>;
+  if (loading) return <div style={{color:'var(--acc)', background:'#000', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'monospace', letterSpacing:'4px'}}>INITIALIZING WORKSPACE...</div>;
 
   const { profile, compositions, workItems, projects } = data;
   const videoProjects = projects.filter(p => p.mediaType === 'video');
   const posters = projects.filter(p => p.mediaType === 'image');
 
-  // Enhanced dynamic timeline tracks
   const timelineTracks = [
-    { id: 'v1', name: 'Video Layer', color: 'var(--acc)', clips: videoProjects.map((p, i) => ({ start: i*10, end: (i*10)+8, name: p.name })) },
-    { id: 'g1', name: 'Graphics Layer', color: 'var(--teal)', clips: posters.map((p, i) => ({ start: i*15, end: (i*15)+12, name: p.name })) }
+    { id: 'v1', name: 'Master Video', color: 'var(--acc)', clips: videoProjects.slice(0,4).map((p, i) => ({ start: i*15, end: (i*15)+12, name: p.name })) },
+    { id: 'v2', name: 'B-Roll / Overlays', color: 'var(--purple)', clips: videoProjects.slice(4).map((p, i) => ({ start: i*12 + 5, end: (i*12)+15, name: p.name })) },
+    { id: 'g1', name: 'Graphics & Posters', color: 'var(--teal)', clips: posters.map((p, i) => ({ start: i*10, end: (i*10)+25, name: p.name })) }
   ];
 
   return (
     <div className="app">
       <div className="menubar">
         <div className="menubar-brand">SV</div>
-        {['File', 'Edit', 'Composition', 'Layer', 'Help'].map(m => <div key={m} className="menubar-item">{m}</div>)}
+        {['File', 'Edit', 'Clip', 'Sequence', 'Marker', 'Window', 'Help'].map(m => <div key={m} className="menubar-item">{m}</div>)}
         <div className="menubar-right">
-          <span className="time-display">{new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })}</span>
-          <div className={`ai-badge ${aiMode ? 'active' : 'inactive'}`} onClick={() => setAiMode(!aiMode)}>
-            <div className={`ai-dot${aiMode ? ' pulse' : ''}`} /> AI {aiMode ? 'ON' : 'OFF'}
+          <span className="time-display" style={{fontFamily:'monospace', color:'var(--t3)'}}>{new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })}</span>
+          <div className="ai-badge active">
+            <div className="ai-dot pulse" style={{width:5, height:5, background:'var(--acc)', borderRadius:'50%'}} /> RENDERING ENGINE: OPTIMIZED
           </div>
         </div>
       </div>
 
       <div className="toolbar">
-        {['↖', '✒', 'T', '□'].map((icon, i) => <div key={i} className="tool-btn">{icon}</div>)}
+        {['↖', '✒', 'T', '⊞', '✂', '✋'].map((icon, i) => <div key={i} className="tool-btn">{icon}</div>)}
         <div className="tool-sep" />
-        <span className="toolbar-label">Workspace: Motion Rendering</span>
+        <span className="toolbar-label">WORKSPACE: PRODUCTION REEL</span>
       </div>
 
       <div className="main-area">
         <div className="panel project-panel">
-          <div className="panel-header"><div className="panel-icon">◈</div><span className="panel-title">Project Browser</span></div>
+          <div className="panel-header"><div className="panel-icon">◈</div><span className="panel-title">Project: Suresh_Portfolio</span></div>
           <div className="project-list">
-            <div className="proj-section">Compositions</div>
+            <div className="proj-section">Primary Compositions</div>
             {compositions.map(c => (
               <div key={c.id} className={`comp-item${activeComp === c.id ? ' active' : ''}`} onClick={() => setActiveComp(c.id)}>
                 <div className="comp-icon" style={{ background: c.color }} />
@@ -245,21 +222,21 @@ function App() {
               </div>
             ))}
             
-            <div className="proj-section">Video Projects</div>
+            <div className="proj-section">Source: Video Projects</div>
             {videoProjects.map(p => (
               <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
                 <div className="comp-icon" style={{ background: 'var(--acc)' }} />
                 <span className="comp-name">{p.name}</span>
-                <span className="comp-dur">MP4</span>
+                <span className="comp-dur">MOV</span>
               </div>
             ))}
 
-            <div className="proj-section">Posters & Graphics</div>
+            <div className="proj-section">Source: Posters & Graphics</div>
             {posters.map(p => (
               <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
                 <div className="comp-icon" style={{ background: 'var(--teal)' }} />
                 <span className="comp-name">{p.name}</span>
-                <span className="comp-dur">IMG</span>
+                <span className="comp-dur">PSD</span>
               </div>
             ))}
           </div>
@@ -275,19 +252,18 @@ function App() {
             ))}
           </div>
           <div className="viewer-content">
-            {aiMode && <div className="ai-overlay"><div className="ai-scan-line active" /></div>}
             {activeComp === 'about' && <About profile={profile} />}
             {activeComp === 'work' && <Work workItems={workItems} />}
             {activeComp === 'player' && <Player project={selectedProject} />}
             {activeComp === 'contact' && <Contact profile={profile} />}
           </div>
           <div className="viewer-footer">
-            <div className="viewer-btn play">▶ Play</div>
-            <div className="resolution-badge">1920 × 1080 · 24fps</div>
+            <div className="viewer-btn play">▶ PLAY REEL</div>
+            <div className="resolution-badge">4K MASTER · 23.976 fps</div>
           </div>
         </div>
 
-        <PropertiesPanel activeComp={activeComp} compositions={compositions} selectedProject={selectedProject} aiMode={aiMode} />
+        <PropertiesPanel activeComp={activeComp} compositions={compositions} selectedProject={selectedProject} />
       </div>
 
       <Timeline activeComp={activeComp} setActiveComp={setActiveComp} playhead={playhead} setPlayhead={setPlayhead} timelineTracks={timelineTracks} />
@@ -297,30 +273,53 @@ function App() {
 
 function About({ profile }) {
   return (
-    <div className="big-text-container fade-in">
-      <h1 className="hero-text">{profile.name}</h1>
-      <p className="hero-text" style={{color:'var(--acc)', fontSize:'38px', marginTop: '10px'}}>{profile.title}</p>
-      <div className="sub-hero-text" style={{fontSize: '22px'}}>{profile.bio}</div>
+    <div className="premium-page-container fade-in">
+      <div className="hero-photo-area">
+        <img src={profile.photo} alt="Suresh Vizhal" />
+      </div>
+      <div className="hero-content">
+        <h1 className="hero-name">{profile.name}</h1>
+        <p className="hero-title">{profile.title}</p>
+        <div className="hero-bio">{profile.bio}</div>
+        
+        <div className="skill-grid">
+           <Skill name="Adobe After Effects" pct={98} color="var(--acc)" />
+           <Skill name="Adobe Premiere Pro" pct={92} color="var(--purple)" />
+           <Skill name="Adobe Photoshop" pct={85} color="var(--teal)" />
+           <Skill name="AI Creative Tools" pct={80} color="var(--orange)" />
+        </div>
+      </div>
     </div>
   );
 }
 
 function Contact({ profile }) {
   return (
-    <div className="big-text-container fade-in">
-      <div className="contact-hero">Get in Touch</div>
-      <a href={`mailto:${profile.contact.email}`} className="hero-text contact-link">{profile.contact.email}</a>
-      <div className="contact-hero" style={{fontSize:'32px', marginTop:'30px'}}>Currently based in {profile.contact.location}</div>
-      <div className="sub-hero-text" style={{fontSize: '24px'}}>{profile.contact.phone}</div>
+    <div className="premium-page-container fade-in" style={{flexDirection:'column', justifyContent:'center', alignItems:'flex-start'}}>
+      <div className="hero-title" style={{letterSpacing:'8px', marginBottom:'40px'}}>ESTABLISH CONNECTION</div>
+      <div className="contact-grid">
+        <div className="contact-block">
+          <div className="contact-label-small">Electronic Mail</div>
+          <a href={`mailto:${profile.contact.email}`} className="contact-value-big">{profile.contact.email}</a>
+        </div>
+        <div className="contact-block">
+          <div className="contact-label-small">Geographic Location</div>
+          <div className="contact-value-big">{profile.contact.location}</div>
+        </div>
+        <div className="contact-block">
+          <div className="contact-label-small">Direct Line</div>
+          <div className="contact-value-big">{profile.contact.phone}</div>
+        </div>
+      </div>
     </div>
   );
 }
 
 function Player({ project }) {
-  if(!project) return <div className="source-monitor"><span style={{color:'var(--t4)'}}>No Clip Loaded</span></div>;
+  if(!project) return <div className="source-monitor"><span style={{color:'var(--t4)'}}>NO SOURCE LOADED</span></div>;
   return (
     <div className="source-monitor fade-in">
-      <div className="player-overlay">MONITOR: {project.name}</div>
+      <div className="player-overlay">SEQUENCE: {project.name} // {project.mediaType.toUpperCase()}</div>
       {project.mediaType === 'video' ? (
         <video key={project.id} src={project.mediaUrl} controls autoPlay muted loop />
       ) : (
@@ -332,32 +331,40 @@ function Player({ project }) {
 
 function Work({ workItems }) {
   return (
-    <div className="comp-work fade-in" style={{padding:'40px'}}>
-      <div className="hero-text" style={{fontSize:'42px', marginBottom:'40px'}}>Experience</div>
+    <div className="comp-work fade-in" style={{padding:'60px 40px'}}>
+      <h2 className="hero-name" style={{fontSize:'64px', marginBottom:'60px'}}>Sequence History</h2>
       {workItems.map((w, i) => (
-        <div key={i} style={{marginBottom:'50px', borderLeft:'4px solid '+w.color, paddingLeft:'25px'}}>
-          <div style={{fontSize:'14px', color:'var(--t4)', fontWeight:600}}>{w.period}</div>
-          <div style={{fontSize:'28px', fontWeight:700, margin:'10px 0'}}>{w.name}</div>
-          <div style={{color:'var(--acc)', fontSize:'18px', marginBottom:'15px'}}>{w.role}</div>
-          <div style={{fontSize:'16px', color:'var(--t2)', lineHeight:1.6, maxWidth:'800px'}}>{w.desc}</div>
+        <div key={i} style={{marginBottom:'60px', borderLeft:'2px solid '+w.color, paddingLeft:'30px', position:'relative'}}>
+          <div style={{position:'absolute', left:'-5px', top:0, width:10, height:10, background:w.color, borderRadius:'50%', boxShadow:'0 0 10px '+w.color}} />
+          <div style={{fontSize:'12px', color:'var(--t4)', fontWeight:700, fontFamily:'monospace'}}>{w.period}</div>
+          <div style={{fontSize:'32px', fontWeight:800, margin:'10px 0', fontFamily:'var(--font-ui)', color:'var(--t1)'}}>{w.name}</div>
+          <div style={{color:'var(--acc)', fontSize:'16px', marginBottom:'20px', fontWeight:600}}>{w.role}</div>
+          <div style={{fontSize:'15px', color:'var(--t2)', lineHeight:1.8, maxWidth:'900px', fontWeight:300}}>{w.desc}</div>
         </div>
       ))}
     </div>
   );
 }
 
-function PropertiesPanel({ activeComp, compositions, selectedProject, aiMode }) {
+function PropertiesPanel({ activeComp, compositions, selectedProject }) {
   const comp = compositions.find(c => c.id === activeComp) || compositions[0];
   return (
     <div className="panel properties-panel">
-      <div className="panel-header"><div className="panel-icon">P</div><span className="panel-title">Metadata</span></div>
+      <div className="panel-header"><div className="panel-icon">P</div><span className="panel-title">Metadata Inspector</span></div>
       <div className="prop-section">
-        <div className="prop-section-header"><span className="prop-section-title">Clip Info</span></div>
+        <div className="prop-section-header">CLIP PROPERTIES</div>
         <div className="info-rows">
-          <div className="info-row"><span className="info-k">Active</span><span className="info-v">{activeComp === 'player' ? selectedProject?.name : comp.name}</span></div>
-          <div className="info-row"><span className="info-k">Format</span><span className="info-v">{activeComp === 'player' ? selectedProject?.mediaType.toUpperCase() : 'COMPS'}</span></div>
-          <div className="info-row"><span className="info-k">Resolution</span><span className="info-v">1920 × 1080</span></div>
-          <div className="info-row"><span className="info-k">FPS</span><span className="info-v">24.00</span></div>
+          <div className="info-row"><span className="info-k">NAME</span><span className="info-v">{activeComp === 'player' ? selectedProject?.name : comp.name}</span></div>
+          <div className="info-row"><span className="info-k">EXT</span><span className="info-v">{activeComp === 'player' ? '.'+selectedProject?.mediaType : '.COMP'}</span></div>
+          <div className="info-row"><span className="info-k">RESOLUTION</span><span className="info-v">3840 × 2160</span></div>
+          <div className="info-row"><span className="info-k">COLOR DEPTH</span><span className="info-v" style={{color:'var(--acc)'}}>32-BIT (HDR)</span></div>
+        </div>
+      </div>
+      <div className="prop-section">
+        <div className="prop-section-header">TRANSFORM</div>
+        <div className="info-rows">
+          <div className="info-row"><span className="info-k">POSITION</span><span className="info-v" style={{color:'var(--acc)'}}>1920.0, 1080.0</span></div>
+          <div className="info-row"><span className="info-k">SCALE</span><span className="info-v" style={{color:'var(--acc)'}}>100.0%</span></div>
         </div>
       </div>
     </div>
@@ -369,16 +376,16 @@ function Timeline({ activeComp, setActiveComp, playhead, setPlayhead, timelineTr
     <div className="timeline">
       <div className="timeline-header">
         <div className="panel-icon" style={{ background: 'var(--orange)' }}>T</div>
-        <span className="tl-title">Sequence Timeline</span>
+        <span className="tl-title">TIMELINE SEQUENCE: MASTER_REEL_2026</span>
         <div className="tl-controls"><div className="tl-timecode">{formatTime(playhead)}</div></div>
       </div>
       <div className="timeline-body">
         <div className="tl-names">
-          <div className="tl-name-header">Track Name</div>
+          <div className="tl-name-header">Source Tracks</div>
           {timelineTracks.map(t => (
             <div key={t.id} className="tl-track">
               <div className="tl-track-icon" style={{ background: t.color }} />
-              <div className="tl-track-name" style={{fontSize:'10px'}}>{t.name}</div>
+              <div className="tl-track-name" style={{fontSize:'10px', fontWeight:600}}>{t.name}</div>
             </div>
           ))}
         </div>
@@ -387,7 +394,9 @@ function Timeline({ activeComp, setActiveComp, playhead, setPlayhead, timelineTr
           {timelineTracks.map(t => (
             <div key={t.id} className="tl-track-row">
               {t.clips.map((c, i) => (
-                <div key={i} className="tl-clip" style={{ left: `${c.start}%`, width: `${c.end - c.start}%`, background: t.color, opacity: 0.6, fontSize: '9px' }}>{c.name}</div>
+                <div key={i} className="tl-clip" style={{ left: `${c.start}%`, width: `${c.end - c.start}%`, background: t.color, opacity: 0.7 }}>
+                  <span style={{padding:'0 5px'}}>{c.name}</span>
+                </div>
               ))}
             </div>
           ))}
