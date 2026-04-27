@@ -199,9 +199,10 @@ function App() {
 
   if (loading) return <div style={{color:'var(--acc)', background:'#000', height:'100vh', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'monospace', letterSpacing:'4px'}}>INITIALIZING WORKSPACE...</div>;
 
-  const { profile, compositions, workItems, projects, youtubeProjects } = data;
-  const videoProjects = projects.filter(p => p.mediaType === 'video');
-  const posters = projects.filter(p => p.mediaType === 'image');
+  const { profile, compositions, workItems, categories, youtubeProjects } = data;
+  const allProjects = categories ? categories.flatMap(c => c.files) : [];
+  const videoProjects = allProjects.filter(p => p.mediaType === 'video');
+  const posters = allProjects.filter(p => p.mediaType === 'image');
 
   const timelineTracks = [
     { id: 'v1', name: 'Master Video', color: 'var(--acc)', clips: videoProjects.slice(0,4).map((p, i) => ({ id: p.id, start: i*15, end: (i*15)+12, name: p.name, data: p })) },
@@ -241,21 +242,16 @@ function App() {
               </div>
             ))}
             
-            <div className="proj-section">Source: Video Projects</div>
-            {videoProjects.map(p => (
-              <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
-                <div className="comp-icon" style={{ background: 'var(--acc)' }} />
-                <span className="comp-name">{p.name}</span>
-                <span className="comp-dur">MOV</span>
-              </div>
-            ))}
-
-            <div className="proj-section">Source: Posters & Graphics</div>
-            {posters.map(p => (
-              <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
-                <div className="comp-icon" style={{ background: 'var(--teal)' }} />
-                <span className="comp-name">{p.name}</span>
-                <span className="comp-dur">PSD</span>
+            {categories && categories.map(cat => (
+              <div key={cat.name}>
+                <div className="proj-section">{cat.name}</div>
+                {cat.files.map(p => (
+                  <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
+                    <div className="comp-icon" style={{ background: p.mediaType === 'video' ? 'var(--acc)' : 'var(--teal)' }} />
+                    <span className="comp-name">{p.name}</span>
+                    <span className="comp-dur">{p.mediaType === 'video' ? 'MOV' : 'PSD'}</span>
+                  </div>
+                ))}
               </div>
             ))}
           </div>

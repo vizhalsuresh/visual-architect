@@ -23,16 +23,47 @@
     { "name": "Kosmik Studios", "role": "Video Editor", "period": "Mar 2025–Feb 2026", "color": "#2d87ff", "desc": "Edited multicam footage and event content into high-quality videos for diverse audiences. Performed advanced green screen keying and compositing for professional outputs.", "tags": ["Multicam Editing", "Green Screen", "Compositing", "AI Tools", "Event Videography"] },
     { "name": "Gozzimma TT / Maho Jase IT", "role": "Video Editor & Graphic Designer", "period": "Sep 2023–Jan 2025", "color": "#e8854a", "desc": "Edited promotional and training videos aligned with branding and marketing strategies.", "tags": ["Premiere Pro", "After Effects", "Graphic Design", "Social Media", "Branding"] }
   ],
-  "projects": [
-    { "id": "p1", "name": "OGS Mascot Opener", "client": "Global Studios", "sub": "AI Mascot Animation", "thumb": "ogs-mascot.mp4", "mediaType": "video", "mediaUrl": "assets/videos/ogs-mascot.mp4" },
-    { "id": "p2", "name": "Karmic Liberation", "client": "Zen Media", "sub": "Animated Visual Series", "thumb": "karmic-liberation.mp4", "mediaType": "video", "mediaUrl": "assets/videos/karmic-liberation.mp4" },
-    { "id": "p3", "name": "8 Conscious Breaths", "client": "Yogi Collective", "sub": "Meditation Guide Series", "thumb": "conscious-breaths.mp4", "mediaType": "video", "mediaUrl": "assets/videos/yogi-meditation/conscious-breaths.mp4" },
-    { "id": "p4", "name": "8 Humming Breaths", "client": "Yogi Collective", "sub": "Sound Healing Visual", "thumb": "humming-breaths.mp4", "mediaType": "video", "mediaUrl": "assets/videos/yogi-meditation/humming-breaths.mp4" },
-    { "id": "p5", "name": "Aham Chants", "client": "Yogi Collective", "sub": "Spiritual Audio-Visual", "thumb": "aham-chants.mp4", "mediaType": "video", "mediaUrl": "assets/videos/yogi-meditation/aham-chants.mp4" },
-    { "id": "p6", "name": "Transcendental Intelligence", "client": "Zen Media", "sub": "Motion Graphic Experience", "thumb": "transcendental-intelligence.mp4", "mediaType": "video", "mediaUrl": "assets/videos/transcendental-intelligence.mp4" },
-    { "id": "p7", "name": "Soul Sync Wellness", "client": "Wellness Hub", "sub": "Branding & Motion Package", "thumb": "soul-sync.jpg", "mediaType": "image", "mediaUrl": "assets/posters/soul-sync.jpg" },
-    { "id": "p8", "name": "Turya Meditation", "client": "Yogi Collective", "sub": "Visual Identity", "thumb": "turya-meditation.jpg", "mediaType": "image", "mediaUrl": "assets/posters/turya-meditation.jpg" },
-    { "id": "p9", "name": "Mind-Body Consciousness", "client": "Integrative Health", "sub": "Promotional Poster Design", "thumb": "wellness-program.jpg", "mediaType": "image", "mediaUrl": "assets/posters/wellness-program.jpg" }
+  "categories": [
+    {
+      "name": "Yogi Opener",
+      "files": [
+        { "id": "yo1", "name": "OGS Mascot", "mediaUrl": "assets/Yogi_opener/OGS_Mascot.mp4", "mediaType": "video" }
+      ]
+    },
+    {
+      "name": "Yogi Meditation",
+      "files": [
+        { "id": "ym1", "name": "01 - 8 Conscious Breaths", "mediaUrl": "assets/Yogi_Meditation/01 - 8 Conscious Breaths.m4v", "mediaType": "video" },
+        { "id": "ym2", "name": "02 - 8 Humming Breaths", "mediaUrl": "assets/Yogi_Meditation/02 - 8 Humming Breaths.m4v", "mediaType": "video" },
+        { "id": "ym3", "name": "03 - 8 Breath Pauses", "mediaUrl": "assets/Yogi_Meditation/03 - 8 Breath Pauses.m4v", "mediaType": "video" },
+        { "id": "ym4", "name": "04 - 8 Aham Chants", "mediaUrl": "assets/Yogi_Meditation/04 - 8 Aham Chants.m4v", "mediaType": "video" },
+        { "id": "ym5", "name": "05 - Move into Expanded Consciousness", "mediaUrl": "assets/Yogi_Meditation/05 - Move into Expanded Consciousness.m4v", "mediaType": "video" },
+        { "id": "ym6", "name": "06 - Hold an Intention", "mediaUrl": "assets/Yogi_Meditation/06 - Hold an Intention.m4v", "mediaType": "video" }
+      ]
+    },
+    {
+      "name": "Animation Videos",
+      "files": [
+        { "id": "av1", "name": "01 - Karmic Liberation", "mediaUrl": "assets/Animation_Videos/01 - Karmic Liberation.mp4", "mediaType": "video" },
+        { "id": "av2", "name": "02 - Transcendental Intelligence", "mediaUrl": "assets/Animation_Videos/02 - Transcendental Intelligence.mp4", "mediaType": "video" },
+        { "id": "av3", "name": "03 - Karmic Liberation", "mediaUrl": "assets/Animation_Videos/03 - Karmic Liberation.mp4", "mediaType": "video" },
+        { "id": "av4", "name": "04 - Transcendental Intelligence", "mediaUrl": "assets/Animation_Videos/04 - Transcendental Intelligence.mp4", "mediaType": "video" }
+      ]
+    },
+    {
+      "name": "Posters",
+      "files": [
+        { "id": "p1", "name": "Turya", "mediaUrl": "assets/posters/Turya.jpeg", "mediaType": "image" },
+        { "id": "p2", "name": "Soul Sync Cluster", "mediaUrl": "assets/posters/Soul_Sync_Cluster.jpg", "mediaType": "image" },
+        { "id": "p3", "name": "Mind-Body Consciousness", "mediaUrl": "assets/posters/Mind_Body_Consciousness_wellness program copy.jpg", "mediaType": "image" },
+        { "id": "p4", "name": "New Oneness Tapas Board", "mediaUrl": "assets/posters/New_Oneness Tapas Board 42.5__64_ NEW OP 2 copy.jpg", "mediaType": "image" },
+        { "id": "p5", "name": "Soul Sync Poster", "mediaUrl": "assets/posters/Soul SYnc POster 6_3_ftArtboard 1.jpg", "mediaType": "image" },
+        { "id": "p6", "name": "Final Meditation Pose", "mediaUrl": "assets/posters/Final Mediatation pose.jpg", "mediaType": "image" },
+        { "id": "p7", "name": "1920_1080", "mediaUrl": "assets/posters/1920_1080.jpg", "mediaType": "image" },
+        { "id": "p8", "name": "DSC00914", "mediaUrl": "assets/posters/DSC00914.JPG", "mediaType": "image" },
+        { "id": "p9", "name": "Final SVG", "mediaUrl": "assets/posters/final (1).svg", "mediaType": "image" }
+      ]
+    }
   ],
   "youtubeProjects": [
     { "id": "yt1", "name": "Cinematic Visuals 01", "ytId": "hO-ic_L74Dc", "ratio": "16:9" },
