@@ -187,7 +187,8 @@ function App() {
   useEffect(() => {
     fetch('./data.json?v=' + new Date().getTime()).then(res => res.json()).then(d => { 
         setData(d); 
-        if(d.projects.length > 0) setSelectedProject(d.projects.find(p => p.mediaType === 'video') || d.projects[0]);
+        const allProjects = d.categories ? d.categories.flatMap(c => c.files) : [];
+        if(allProjects.length > 0) setSelectedProject(allProjects.find(p => p.mediaType === 'video') || allProjects[0]);
         setLoading(false); 
     });
   }, []);
