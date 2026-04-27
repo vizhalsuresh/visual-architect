@@ -176,6 +176,43 @@ function Skill({ name, pct, color }) {
     </div>
   );
 }
+function MainFolder({ title, items, activeComp, setActiveComp }) {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <div>
+      <div className="proj-section" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s' }} onClick={() => setIsOpen(!isOpen)}>
+        <span style={{ fontSize: '8px', opacity: 0.7, transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▼</span> 
+        {title}
+      </div>
+      {isOpen && items.map(c => (
+        <div key={c.id} className={`comp-item${activeComp === c.id ? ' active' : ''}`} onClick={() => setActiveComp(c.id)}>
+          <div className="comp-icon" style={{ background: c.color }} />
+          <span className="comp-name">{c.name}</span>
+          <span className="comp-dur">{c.dur}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CategoryFolder({ cat, selectedProject, setSelectedProject, setActiveComp }) {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <div>
+      <div className="proj-section" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s' }} onClick={() => setIsOpen(!isOpen)}>
+        <span style={{ fontSize: '8px', opacity: 0.7, transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▼</span> 
+        {cat.name}
+      </div>
+      {isOpen && cat.files.map(p => (
+        <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
+          <div className="comp-icon" style={{ background: p.mediaType === 'video' ? 'var(--acc)' : 'var(--teal)' }} />
+          <span className="comp-name">{p.name}</span>
+          <span className="comp-dur">{p.mediaType === 'video' ? 'MOV' : 'PSD'}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function App() {
   const [data, setData] = useState(null);
@@ -234,26 +271,10 @@ function App() {
         <div className="panel project-panel">
           <div className="panel-header"><div className="panel-icon">◈</div><span className="panel-title">Project: Suresh_Portfolio</span></div>
           <div className="project-list">
-            <div className="proj-section">Primary Compositions</div>
-            {compositions.map(c => (
-              <div key={c.id} className={`comp-item${activeComp === c.id ? ' active' : ''}`} onClick={() => setActiveComp(c.id)}>
-                <div className="comp-icon" style={{ background: c.color }} />
-                <span className="comp-name">{c.name}</span>
-                <span className="comp-dur">{c.dur}</span>
-              </div>
-            ))}
+            <MainFolder title="Primary Compositions" items={compositions} activeComp={activeComp} setActiveComp={setActiveComp} />
             
             {categories && categories.map(cat => (
-              <div key={cat.name}>
-                <div className="proj-section">{cat.name}</div>
-                {cat.files.map(p => (
-                  <div key={p.id} className={`comp-item${selectedProject?.id === p.id ? ' active' : ''}`} onClick={() => { setSelectedProject(p); setActiveComp('player'); }}>
-                    <div className="comp-icon" style={{ background: p.mediaType === 'video' ? 'var(--acc)' : 'var(--teal)' }} />
-                    <span className="comp-name">{p.name}</span>
-                    <span className="comp-dur">{p.mediaType === 'video' ? 'MOV' : 'PSD'}</span>
-                  </div>
-                ))}
-              </div>
+              <CategoryFolder key={cat.name} cat={cat} selectedProject={selectedProject} setSelectedProject={setSelectedProject} setActiveComp={setActiveComp} />
             ))}
           </div>
         </div>
