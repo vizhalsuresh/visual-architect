@@ -154,6 +154,54 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg0);}
 
 ::-webkit-scrollbar {width:4px;}
 ::-webkit-scrollbar-thumb {background:var(--b2);border-radius:2px;}
+
+/* PRE-LOADER ANIMATIONS */
+@keyframes loadingBar {
+  0% { width: 0%; left: 0; }
+  50% { width: 30%; left: 70%; }
+  100% { width: 0%; left: 100%; }
+}
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+.loading-bar-wrap {
+  width: 120px;
+  height: 2px;
+  background: var(--bg4);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.loading-bar-fill {
+  position: absolute;
+  height: 100%;
+  background: var(--acc);
+  animation: loadingBar 1.5s infinite ease-in-out;
+}
+.player-shutter {
+  position: absolute;
+  inset: 0;
+  background: var(--bg1);
+  z-index: 5;
+  transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+}
+.player-shutter.open {
+  transform: translateY(-100%);
+}
+.shutter-logo {
+  font-family: var(--font-hero);
+  font-size: 24px;
+  color: var(--t4);
+  letter-spacing: 4px;
+}
 </style>
 </head>
 <body>
@@ -386,18 +434,67 @@ function YouTubeCard({ item }) {
 }
 
 function Player({ project }) {
+  const [ready, setReady] = useState(false);
+  const [processing, setProcessing] = useState(true);
+
+  useEffect(() => {
+    setReady(false);
+    setProcessing(true);
+    const timer = setTimeout(() => {
+      setProcessing(false);
+    }, 1200); // Artificial delay for premium feel
+    return () => clearTimeout(timer);
+  }, [project?.id]);
+
   if(!project) return <div className="source-monitor"><span style={{color:'var(--t4)'}}>NO SOURCE LOADED</span></div>;
+
   return (
     <div className="source-monitor fade-in" style={{ flexDirection: 'column', background: 'var(--bg1)' }}>
-      <div style={{ marginBottom: '15px', color: 'var(--t1)', fontSize: '18px', fontWeight: 'bold', letterSpacing: '2px', textAlign: 'center' }}>
+      <div style={{ marginBottom: '15px', color: 'var(--t1)', fontSize: '18px', fontWeight: 'bold', letterSpacing: '2px', textAlign: 'center', transition: 'opacity 0.3s', opacity: ready ? 1 : 0.4 }}>
         {project.name}
       </div>
-      <div style={{ width: '80%', height: '70%', background: '#000', borderRadius: '6px', border: '1px solid var(--b2)', boxShadow: '0 20px 60px rgba(0,0,0,0.8)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      
+      <div style={{ width: '85%', height: '75%', background: '#000', borderRadius: '4px', border: '1px solid var(--b2)', boxShadow: '0 30px 80px rgba(0,0,0,0.9)', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        
+        {/* SHUTTER / LOADING OVERLAY */}
+        <div className={`player-shutter ${ready ? 'open' : ''}`} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px' }}>
+             {processing ? (
+                <div className="loading-indicator">
+                    <span style={{ fontSize: '9px', letterSpacing: '2px', color: 'var(--t3)', fontWeight: 'bold' }}>SYNCHRONIZING SEQUENCE</span>
+                    <div className="loading-bar-wrap">
+                        <div className="loading-bar-fill"></div>
+                    </div>
+                </div>
+             ) : (
+                <div className="shutter-logo">VA_SYSTEM</div>
+             )}
+        </div>
+
         {project.mediaType === 'video' ? (
-          <video key={project.id} src={project.mediaUrl} controls autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          <video 
+            key={project.id} 
+            src={project.mediaUrl} 
+            controls 
+            autoPlay 
+            muted 
+            loop 
+            onLoadedData={() => setReady(true)}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+          />
         ) : (
-          <img key={project.id} src={project.mediaUrl} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          <img 
+            key={project.id} 
+            src={project.mediaUrl} 
+            onLoad={() => setReady(true)}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+          />
         )}
+      </div>
+
+      <div style={{ marginTop: '12px', display: 'flex', gap: '20px', fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'var(--t4)' }}>
+          <span>FPS: 23.976</span>
+          <span>BITRATE: 45MBPS</span>
+          <span>CODEC: H.264 High 10 Profile</span>
       </div>
     </div>
   );
