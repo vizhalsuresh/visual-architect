@@ -44,7 +44,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg0);}
 .tool-sep{width:1px;height:16px;background:var(--b2);margin:0 6px;}
 .toolbar-label{font-size:11px;color:var(--t3);padding:0 8px;letter-spacing:.08em;font-weight:500;text-transform:uppercase;}
 
-.main-area{display:grid;grid-template-columns:260px 1fr 280px;overflow:hidden;border-bottom:1px solid var(--b1);}
+.main-area{display:grid;grid-template-columns:350px 1fr 280px;overflow:hidden;border-bottom:1px solid var(--b1);}
 
 .panel{background:var(--bg1);display:flex;flex-direction:column;overflow:hidden;}
 .panel-header{background:var(--bg2);border-bottom:1px solid var(--b1);padding:6px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
@@ -367,13 +367,17 @@ function YouTubeCard({ item }) {
 function Player({ project }) {
   if(!project) return <div className="source-monitor"><span style={{color:'var(--t4)'}}>NO SOURCE LOADED</span></div>;
   return (
-    <div className="source-monitor fade-in">
-      <div className="player-overlay">SEQUENCE: {project.name} // {project.mediaType.toUpperCase()}</div>
-      {project.mediaType === 'video' ? (
-        <video key={project.id} src={project.mediaUrl} controls autoPlay muted loop />
-      ) : (
-        <img key={project.id} src={project.mediaUrl} />
-      )}
+    <div className="source-monitor fade-in" style={{ flexDirection: 'column', background: 'var(--bg1)' }}>
+      <div style={{ marginBottom: '15px', color: 'var(--t1)', fontSize: '18px', fontWeight: 'bold', letterSpacing: '2px', textAlign: 'center' }}>
+        {project.name}
+      </div>
+      <div style={{ width: '80%', height: '70%', background: '#000', borderRadius: '6px', border: '1px solid var(--b2)', boxShadow: '0 20px 60px rgba(0,0,0,0.8)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {project.mediaType === 'video' ? (
+          <video key={project.id} src={project.mediaUrl} controls autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        ) : (
+          <img key={project.id} src={project.mediaUrl} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        )}
+      </div>
     </div>
   );
 }
