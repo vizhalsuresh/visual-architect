@@ -51,6 +51,10 @@
       ]
     },
     {
+      "name": "Remotion",
+      "files": []
+    },
+    {
       "name": "Posters",
       "files": [
         { "id": "p1", "name": "Tapas Pamphlet", "mediaUrl": "assets/posters/Turya.jpeg", "mediaType": "image" },
